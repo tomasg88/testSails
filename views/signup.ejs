@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pagina de registro</title>
+        
+        <!-- Viewport mobile tag for sensible mobile support -->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+        <!--STYLES-->
+        <link rel="stylesheet" href="/styles/angular-toastr.css">
+        <link rel="stylesheet" href="/styles/bootstrap-theme.css">
+        <link rel="stylesheet" href="/styles/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/styles/bootstrap.css">
+        <link rel="stylesheet" href="/styles/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles/importer.css">
+        <!--STYLES END-->
+        
+        <!-- Added this so the client has access to the csrf tag and its grabbed first service side on every page -->
+        <script>
+            window.SAILS_LOCALS = { _csrf: "<%= _csrf %>" };
+        </script>
+        
+    </head>
+    
+    <body ng-app="SignupModule" ng-controller="SignupController" ng-cloak>
+        
+        <div class="container-fluid">
+            
+            <h1>Registro</h1>
+            
+            <!-- Creates navbar -->
+            <nav class="navbar navbar-default navbar-inverse">
+                <!-- Mechanism for collapse button -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <!-- This controls the number of lines in the image when the nav is collapsed -->
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>    
+                
+                <a class="navbar-brand" href="http://google.com">Home</a>
+                
+                <!-- Login form -->
+                <form ng-submit="submitLoginForm()" class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" name="email" placeholder="Email" ng-model="loginForm.email"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" placeholder="Password" ng-model="loginForm.password"/>
+                    </div>
+                </form>
+                
+            </nav>
+            
+            <form ng-submit="submitSignupForm()" id="sign-up-form" name="signup" class="form-signin">
+                <!-- form title -->
+                <h2 class="form-signin-heading">New user</h2>
+                <!-- NAME IS REQUIRED -->
+                <div class="control-group form-group col-md-12" ng-class="{'has-error':signup.name.$invalid && signup.name.$dirty}" >
+                    <label>Your name: </label>
+                    <!-- Text box for name -->
+                    <input type="text" class="form-control" placeholder="Your name" ng-model="signupForm.name" ng-maxlength="50" name="name" required />
+
+                    <!-- Error messages -->
+                    <span class="help-block has-error" ng-if="signup.name.$dirty">
+                        <span ng-show="signup.name.$error.required">Name is required</span>
+                        <span ng-show="signup.name.$error.maxlength">Name cannot be longer than 50 characters</span>
+                    </span>
+                </div>
+
+                <!-- TITLE IS REQUIRED -->
+                <div class="control-group form-group col-md-12" ng-class="{'has-error':signup.title.$invalid && signup.title.$dirty}">
+                    <label>And your title is:</label>
+                    <!-- Text box for name -->
+                    <input type="text" class="form-control" placeholder="Mr./Mrs." ng-model="signupForm.title" ng-maxlength="50" name="title" required />
+
+                    <!-- Error messages -->
+                    <span class="help-block has-error" ng-if="signup.title.$dirty">
+                        <span ng-show="signup.title.$error.required">Title is required</span>
+                    </span>
+                </div>
+
+                <!-- EMAIL IS REQUIRED -->
+                <div class="control-group form-group col-md-12" ng-class="{'has-error':signup.email.$invalid && signup.email.$dirty}">
+                    <label>Email address: </label>
+                    <!-- Text box for name -->
+                    <input type="text" class="form-control" placeholder="Your name" ng-model="signupForm.email" ng-maxlength="50" name="email" required />
+
+                    <!-- Error messages -->
+                    <span class="help-block has-error" ng-if="signup.email.$dirty">
+                        <span ng-show="signup.email.$error.required">Name is required</span>
+                        <span ng-show="signup.email.$error.maxlength">Name cannot be longer than 50 characters</span>
+                    </span>
+                </div>
+
+                <!-- PASSWORD IS REQUIRED -->
+                <div class="control-group form-group col-md-6" ng-class="{'has-error':signup.password.$invalid && signup.password.$dirty}">
+                    <label>Set password: </label>
+                    <!-- Text box for name -->
+                    <input type="password" class="form-control" placeholder="Password" name="password" ng-model="signupForm.password" required ng-minlength="6" compare-to="signupForm.confirmPassword"/>
+
+                    <!-- Error messages -->
+                    <span class="help-block has-error" ng-if="signup.password.$dirty">
+                        <span ng-show="signup.password.$error.required">Password is required</span>
+                        <span ng-show="signup.password.$error.minlength">Must be at least 6 characters</span>
+                    </span>
+                </div>
+
+                <!-- CONFIRM PASSWORD IS REQUIRED -->
+                <div class="control-group form-group col-md-6">
+                    <label>Re-Enter your password</label>
+                    <!-- Text box for name -->
+                    <input type="password" class="form-control" placeholder="Password again" ng-model="signupForm.confirmPassword" required name="confirmation" />
+
+                    <!-- Error messages -->
+                    <span class="help-block has-error" ng-if="signup.confirmation.$dirty">
+                        <span ng-show="signup.password.$error.compareTo">Passwords must match</span>
+                        <span ng-show="signup.confirmation.$error.required">Confirmation that password is required</span>
+                    </span>
+                </div>
+
+                <br />
+
+                <!-- SUBMIT BUTTON -->
+                <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="signup.$invalid">
+                    <span ng-show="!signupForm.loading">Create Account</span>
+                    <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading"></span>
+                    <span ng-show="signupForm.loading" >Preparing your account...</span>
+                </button>
+                
+                <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+                
+            </form> <!-- Closing form for submit -->
+            
+        </div>
+        
+        <!--SCRIPTS-->
+        <script src="/js/dependencies/sails.io.js"></script>
+        <script src="/js/dependencies/angular.js"></script>
+        <script src="/js/dependencies/angular-toastr.js"></script>
+        <script src="/js/dependencies/compareTo.module.js"></script>
+        <script src="/js/public/signup/SignupModule.js"></script>
+        <script src="/js/public/signup/SignupController.js"></script>
+        <!--SCRIPTS END-->
+    </body>
+</html>
