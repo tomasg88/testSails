@@ -7,5 +7,60 @@
 
 module.exports = {
 	
+    /**
+     * Signup on server side
+     * 1. Encrypts password
+     * 2. Generates gravatarUrl for each user, depending on the email
+     * 3. Saves the user in the DB with User.Create passing along all info
+     */
+    signup: function(req, res){
+        
+        var Passwords = require('machinepack-passwords');
+        
+        Passwords.encryptPassword({
+            password: req.param('password')
+        }).exec({
+            // An unexpected error occurred.
+            error: function (err){
+                res.negotiate(err);
+            },
+            // OK.
+            success: function (encryptedPassword){
+                var Gravatar = require('machinepack-gravatar');
+                Gravatar.getImageUrl({
+                    emailAddress: req.param('email'),
+                    useHttps: true,
+                }).exec({
+                    error: function (err){
+                        res.negotiate(err);
+                    },
+                    success: function(gravatarUrl){
+                        // User.create(objJson, callbaks)
+                        User.create({
+                            name: req.param('name'),
+                            title: req.param('title'),
+                            email: req.param('email'),
+                            password: encryptedPassword,
+                            gravatarUrl: gravatarUrl,
+                            lastLoggedIn: new Date()
+                        }, function userCreated(err, newUser){
+                            if (err){
+                                console.log('err tomy:' + err);
+                                console.log('tomy Invalid Attr:' + err.invalidAttributes);
+                                if (err.invalidAttributes && err.invalidAttributes.email && err.invalidAttributes.email[0]
+                                   && err.invalidAttributes.email[0].rule === 'unique'){
+                                    return res.emailAddressInUse();
+                                }
+                            } else {
+                                return res.json({
+                                    id: newUser.id
+                                });
+                            }
+                        })
+                    }
+                }); 
+            }
+        });     
+    }
 };
 

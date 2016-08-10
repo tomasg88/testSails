@@ -39,7 +39,7 @@ module.exports.routes = {
 'GET /about': {view: 'about'},
 
 // URL para grabar en API de Sails
-'POST /signup': 'UserController.create',
+'POST /signup': 'UserController.signup',
 'GET /user': 'UserController.find'
 
   /***************************************************************************

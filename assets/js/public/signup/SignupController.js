@@ -1,13 +1,15 @@
 var signupModulo = angular.module('SignupModule');
 
 // Controller code
-var ctrlCode = function($scope, $http){
+var ctrlCode = function($scope, $http, toastr){
     
-    $scope.signupForm = { loading: false };
+    $scope.signupForm = { 
+        loading: false 
+    };
     
     $scope.submitSignupForm = function(){
         $scope.signupForm.loading = true;
-        console.log('Create user');
+        console.log('Angular - Create user');
         $http.post('/signup', {
             name: $scope.signupForm.name,
             title: $scope.signupForm.title,
@@ -18,17 +20,16 @@ var ctrlCode = function($scope, $http){
             window.location = '/user'
         })
         .catch(function onError(sailsData){
-            console.log('sailsData: ' + sailsData);
+            var emailInuse = sailsData.status == 409;
+            if (emailInuse){
+                toastr.error('The email address you entered is invalid');
+            }
         })
         .finally(function eitherWay(){
-            $scope.signupForm.location = false;
+            $scope.signupForm.loading = false;
         })
     };
     
-    $scope.submitLoginForm = function(){
-        $http.get('/user?email'+$scope.submitLoginForm.email);
-    }
-    
 }
-signupModulo.controller('SignupController', ['$scope', '$http', ctrlCode]);
+signupModulo.controller('SignupController', ['$scope', '$http', 'toastr', ctrlCode]);
                         
