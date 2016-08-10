@@ -1,1 +1,6 @@
-angular.module('SignupModule', ['toastr', 'compareTo']);
+(function(){
+	'use strict';
+	
+	angular.module('SignupModule', ['toastr', 'compareTo']);
+	
+})();

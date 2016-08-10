@@ -26,8 +26,6 @@
         
         <div class="container-fluid">
             
-            <h1>Registro</h1>
-            
             <!-- Creates navbar -->
             <nav class="navbar navbar-default navbar-inverse">
                 <!-- Mechanism for collapse button -->
@@ -46,8 +44,13 @@
                         <input type="text" name="email" placeholder="Email" ng-model="loginForm.email"/>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" placeholder="Password" ng-model="loginForm.password"/>
+                        <input type="password" name="password" placeholder="Password" ng-model="loginForm.password" />
                     </div>
+					<button class="btn btn-success btn-lg btn-block" type="submit">
+						<span ng-show="!signupForm.loading">Sign in</span>
+						<span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading"></span>
+						<span ng-show="signupForm.loading" >Preparing your account...</span>
+					</button>					
                 </form>
                 
             </nav>
@@ -137,10 +140,10 @@
         <!--SCRIPTS-->
         <script src="/js/dependencies/sails.io.js"></script>
         <script src="/js/dependencies/angular.js"></script>
-        <script src="/js/dependencies/angular-toastr.js"></script>
+        <script src="/js/dependencies/angular-toastr.tpls.js"></script>
         <script src="/js/dependencies/compareTo.module.js"></script>
         <script src="/js/public/signup/SignupModule.js"></script>
         <script src="/js/public/signup/SignupController.js"></script>
         <!--SCRIPTS END-->
     </body>
-</html>
+</html> 
