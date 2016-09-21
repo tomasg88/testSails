@@ -33,10 +33,9 @@ module.exports.routes = {
   ***************************************************************************/
 // Server prerendered views
 'GET /signup': {view: 'signup'},
-'GET /': {
-    view: 'homepage'
-},
+'GET /': { view: 'homepage' },
 'GET /about': {view: 'about'},
+'GET /home': {view: 'miHome'},
 
 // URL para grabar en API de Sails
 'POST /signup': 'UserController.signup',
