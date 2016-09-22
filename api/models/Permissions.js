@@ -6,9 +6,21 @@
  */
 
 module.exports = {
-
+  tableName:"Permissions",
   attributes: {
-
+      id:{
+          type:"string",
+          required:true,
+          unique:true
+      },
+      namePermission:{
+          type:"string",
+          required:true
+      },
+      descPermission:{
+          type:"string",
+          required:false,
+      }
   }
 };
 

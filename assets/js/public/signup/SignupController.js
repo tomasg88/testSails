@@ -35,12 +35,14 @@
 		};
 		
 		$scope.submitLoginForm = function(){
-			 $http.post(
-				 
-			 ).then(function onSuccess(){
-				 
-			 }).catch(function onError(){
-				 
+			 $http.get('/user/getByCredentials',{
+                 email: $scope.loginForm.email,
+                 password: $scope.loginForm.password
+             }).then(function onSuccess(data){
+				 alert("Bienvenido: " + data.data[0].email);
+			 }).catch(function onError(ex){
+				 alert("ERRORRRR!!\n" +ex);
+                 console.log("obj: "+ex)
 			 });
 		};
 

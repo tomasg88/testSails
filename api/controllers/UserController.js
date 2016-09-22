@@ -61,8 +61,17 @@ module.exports = {
         });     
     },
     
-    find: function(req, res){
-        
+    getByCredentials: function(req, res){
+        var Mysql = require('sails-mysql'),
+            Passwords = require('machinepack-passwords'),
+            pEmail = req.param('email'),
+            pPassword = req.param('password');
+        User.find().exec(function(err, users){
+            if(err){
+                return res.json(err);
+            }
+            return res.json(users);
+        });
     }
 };
 

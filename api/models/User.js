@@ -6,11 +6,12 @@
  */
 
 module.exports = {
-
-  attributes: {
+    tableName: 'User',
+    attributes: {
       name: {
           type: 'string',
           required: true
+          //maxLength: 45
       },
       title: {
           type: 'string',
@@ -21,10 +22,12 @@ module.exports = {
           required: true,
           email: true,
           unique: true
+          //maxLength: 45
       },
       password: {
           type: 'string',
           required: true
+          //maxLength: 45
       },
       lastLoggedIn: {
           type: 'date',
@@ -33,7 +36,8 @@ module.exports = {
       },
       gravatarUrl: {
           type: 'string'
+          //maxLength: 100
       }
-  }
+    }
 };
 

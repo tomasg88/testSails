@@ -12,7 +12,7 @@ module.exports.models = {
 * See config/connections.js
 *
 */
-// connection: 'localDiskDb',
+connection: 'someMysqlServer',
 
 	
 /**
