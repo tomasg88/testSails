@@ -13,7 +13,7 @@ module.exports = {
      * 2. Generates gravatarUrl for each user, depending on the email
      * 3. Saves the user in the DB with User.Create passing along all info
      */
-    signup: function(req, res){
+    newUser: function(req, res){
         
         var Passwords = require('machinepack-passwords');
         
@@ -62,15 +62,13 @@ module.exports = {
     },
     
     getByCredentials: function(req, res){
-        var Mysql = require('sails-mysql'),
-            Passwords = require('machinepack-passwords'),
-            pEmail = req.param('email'),
-            pPassword = req.param('password');
-        User.find().exec(function(err, users){
+        var pEmail = req.param('email'),
+        pPassword = req.param('password');
+        User.find().exec(function(err, user){
             if(err){
                 return res.json(err);
             }
-            return res.json(users);
+            return res.json(user);
         });
     }
 };

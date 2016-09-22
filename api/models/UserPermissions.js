@@ -8,12 +8,12 @@
 module.exports = {
 
   attributes: {
-      userId:{
-          model:"User"
-      },
-      permissionId:{
-          model:"Permissions"
-      }
+      // userId:{
+      //     model:"User"
+      // },
+      // permissionId:{
+      //     model:"Permissions"
+      // }
   }
 };
 

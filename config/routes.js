@@ -37,9 +37,6 @@ module.exports.routes = {
 'GET /about': {view: 'about'},
 'GET /home': {view: 'miHome'},
 
-// URL para grabar en API de Sails
-'POST /signup': 'UserController.signup',
-'GET /user/getByCredentials': 'UserController.getByCredentials'
 
   /***************************************************************************
   *                                                                          *
@@ -50,5 +47,12 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+// URLs de APIs - Referencia para verbos HTTP
+// POST: usado para crear/insertar data
+// GET: cualquier consulta
+// PUT: cualquier update
+// DESTROY: borrado de registros
+'POST /api/user/newUser': 'UserController.newUser',
+'GET /api/user/getByCredentials/:email': 'UserController.getByCredentials'
     
 };
