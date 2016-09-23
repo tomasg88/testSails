@@ -36,7 +36,7 @@ module.exports.routes = {
 'GET /': { view: 'homepage' },
 'GET /about': {view: 'about'},
 'GET /home': {view: 'miHome'},
-
+'GET /layout': {view: 'layout'},
 
   /***************************************************************************
   *                                                                          *
