@@ -16,7 +16,7 @@
 		$scope.submitSignupForm = function(){
 			$scope.signupForm.loading = true;
 			console.log('Angular - Create user flow');
-			$http.post('api/user/newUser', {
+			$http.post('api/v1/user/newUser', {
 				name: $scope.signupForm.name,
 				title: $scope.signupForm.title,
 				email: $scope.signupForm.email,
