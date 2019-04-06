@@ -76,7 +76,7 @@ module.exports = {
     getByCredentials: function(req, res){
         var pEmail = req.param('email'),
         pPassword = req.param('password');
-        User.find().exec(function(err, user){
+        User.findOne({ email: pEmail }).exec(function(err, user){
             if(err){
                 return res.json(err);
             }
