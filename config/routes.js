@@ -52,7 +52,8 @@ module.exports.routes = {
 // GET: cualquier consulta
 // PUT: cualquier update
 // DESTROY: borrado de registros
+'GET /user/list': 'UserController.list',
 'POST /user/newUser': 'UserController.newUser',
 'GET /user/getByCredentials/:email': 'UserController.getByCredentials'
-    
+
 };

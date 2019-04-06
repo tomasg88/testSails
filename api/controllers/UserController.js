@@ -6,7 +6,19 @@
  */
 
 module.exports = {
-	
+
+    /**
+     * List of all users available in user table
+     */
+    list: function(req, res) {
+        User.find().exec(function(err, users){
+            if(err){
+                return res.json(err);
+            }
+            return res.json(users);
+        });
+    },
+
     /**
      * Signup on server side
      * 1. Encrypts password
@@ -14,9 +26,9 @@ module.exports = {
      * 3. Saves the user in the DB with User.Create passing along all info
      */
     newUser: function(req, res){
-        
+
         var Passwords = require('machinepack-passwords');
-        
+
         Passwords.encryptPassword({
             password: req.param('password')
         }).exec({
@@ -56,11 +68,11 @@ module.exports = {
                             }
                         })
                     }
-                }); 
+                });
             }
-        });     
+        });
     },
-    
+
     getByCredentials: function(req, res){
         var pEmail = req.param('email'),
         pPassword = req.param('password');
@@ -72,4 +84,3 @@ module.exports = {
         });
     }
 };
-
