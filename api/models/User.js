@@ -13,10 +13,6 @@ module.exports = {
           required: true
           //maxLength: 45
       },
-      title: {
-          type: 'string',
-          required: true
-      },
       email: {
           type: 'string',
           required: true,
@@ -29,15 +25,9 @@ module.exports = {
           required: true
           //maxLength: 45
       },
-      lastLoggedIn: {
-          type: 'date',
-          required: true,
-          defaultsTo: new Date(0)
-      },
       gravatarUrl: {
           type: 'string'
           //maxLength: 100
       }
     }
 };
-
